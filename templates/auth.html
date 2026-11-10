@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Log in' if mode == 'login' else 'Create an account' }}{% endblock %}
+{% block content %}
+<section class="container auth-page">
+  <div class="auth-aside">
+    <span class="eyebrow">A better search starts with better context</span>
+    <h1>Make campus living feel a little easier.</h1>
+    <p>Save your shortlist, share useful experiences, and keep your next move in one place.</p>
+    <div class="auth-note"><span>✦</span><div><strong>Sample data is always labelled.</strong><small>Seeded listings and reviews are there to demonstrate the product, not to represent real student claims.</small></div></div>
+  </div>
+  <div class="auth-card card">
+    <div class="auth-tabs"><a class="{{ 'active' if mode == 'login' }}" href="{{ url_for('login') }}">Log in</a><a class="{{ 'active' if mode == 'register' }}" href="{{ url_for('register') }}">Create account</a></div>
+    {% if mode == 'login' %}
+      <h2>Welcome back</h2><p class="muted">Continue exploring Hyderabad stays.</p>
+      <form method="post" class="stack-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
+        <label>Password<input type="password" name="password" required autocomplete="current-password" placeholder="Your password"></label>
+        <button class="button button-primary button-wide" type="submit">Log in <span>→</span></button>
+      </form>
+    {% else %}
+      <h2>Join HostelFinder</h2><p class="muted">Your review can help someone find a safer, better fit.</p>
+      <form method="post" class="stack-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Your name<input type="text" name="name" required minlength="2" maxlength="80" autocomplete="name" placeholder="Priya Sharma"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
+        <label>Password<input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters"></label>
+        <label>Confirm password<input type="password" name="confirm_password" required minlength="8" autocomplete="new-password" placeholder="Repeat your password"></label>
+        <button class="button button-primary button-wide" type="submit">Create my account <span>→</span></button>
+      </form>
+    {% endif %}
+    <p class="form-footnote">By continuing, you agree to be respectful and share only experiences you can stand behind.</p>
+  </div>
+</section>
+{% endblock %}

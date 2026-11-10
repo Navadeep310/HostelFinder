@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+instance/*.db
+instance/*.db-*
+uploads/*
+!uploads/.gitkeep
+!uploads/sample-*.svg
+uploads/thumbnails/*

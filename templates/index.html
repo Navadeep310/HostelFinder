@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Find your stay near campus{% endblock %}
+{% block content %}
+<section class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Hyderabad student housing, made simple</span>
+      <h1>Find your next <span class="text-gradient">home near campus.</span></h1>
+      <p class="hero-lede">Compare hostels and PG rooms by distance, price, amenities, and student reviews — all in one friendly map.</p>
+      <div class="trust-row"><span>✓ No brokerage promise</span><span>✓ Student-first filters</span><span>✓ Open map data</span></div>
+    </div>
+    <div class="search-card glass-card">
+      <div class="search-card-heading"><span class="search-icon">⌕</span><div><strong>Start with your college</strong><span>Search by name or find colleges near you.</span></div></div>
+      <form id="college-search-form" class="college-search-form" autocomplete="off">
+        <label class="sr-only" for="college-search">Search Hyderabad colleges</label>
+        <div class="autocomplete-wrap">
+          <input id="college-search" class="large-input" type="search" placeholder="Try JNTUH, IIIT, CBIT…" aria-autocomplete="list" aria-controls="college-suggestions">
+          <div id="college-suggestions" class="suggestions" role="listbox"></div>
+        </div>
+        <button class="button button-primary button-wide" type="submit">Explore nearby stays <span>→</span></button>
+      </form>
+      <button id="use-location" class="location-button" type="button"><span class="location-button-icon">◎</span><span><strong>Use my current location</strong><small>Find Hyderabad colleges closest to you</small></span><span class="location-arrow">→</span></button>
+      <p id="location-status" class="location-status" role="status" aria-live="polite"></p>
+      <div class="popular-searches"><span>Popular:</span><button type="button" data-college-query="JNTUH">JNTUH</button><button type="button" data-college-query="IIIT">IIIT Hyderabad</button><button type="button" data-college-query="CBIT">CBIT</button><button type="button" data-college-query="Osmania">Osmania University</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="container explorer-section" id="explorer">
+  <div class="section-heading explorer-heading">
+    <div><span class="eyebrow">Your shortlist</span><h2 id="results-title">Choose a college to begin</h2><p id="results-subtitle">Search above to see nearby sample listings and verified community reviews.</p></div>
+    <div id="selected-college-pill" class="selected-college-pill hidden"></div>
+  </div>
+
+  <div id="filter-panel" class="filter-panel hidden">
+    <form id="filters-form" class="filters-grid">
+      <label>Radius<select name="radius"><option value="1">Within 1 km</option><option value="3">Within 3 km</option><option value="5" selected>Within 5 km</option><option value="10">Within 10 km</option></select></label>
+      <label>Property type<select name="type"><option value="">All types</option><option value="boys">Boys</option><option value="girls">Girls</option><option value="co-living">Co-living</option></select></label>
+      <label>Budget from<input type="number" name="min_price" min="0" step="500" placeholder="₹ min"></label>
+      <label>Budget to<input type="number" name="max_price" min="0" step="500" placeholder="₹ max"></label>
+      <label>Sharing<select name="sharing"><option value="">Any sharing</option><option value="single">Single</option><option value="double">Double</option><option value="triple">Triple</option></select></label>
+      <label>Sort by<select name="sort"><option value="nearest">Nearest first</option><option value="price">Lowest price</option><option value="rating">Top rated</option></select></label>
+      <label class="check-label"><input type="checkbox" name="food" value="true"><span>Food included</span></label>
+      <label class="check-label"><input type="checkbox" name="ac" value="true"><span>AC available</span></label>
+      <button class="button button-secondary filter-submit" type="submit">Apply filters</button>
+      <button class="button button-ghost filter-clear" id="clear-filters" type="button">Clear</button>
+    </form>
+  </div>
+
+  <div class="explorer-layout">
+    <section class="results-column" aria-label="Hostel results">
+      <div class="results-toolbar"><span id="results-count">No results yet</span><button id="toggle-filters" class="button button-ghost button-small" type="button">Filters <span class="filter-count"></span></button></div>
+      <div id="results-list" class="results-list">
+        <div class="empty-state compact"><span class="empty-icon">⌖</span><h3>Your map starts here</h3><p>Pick a college above and we'll find nearby stays.</p></div>
+      </div>
+    </section>
+    <section class="map-column" aria-label="Map of nearby hostels"><div id="map" class="map"></div><div class="map-legend"><span class="legend-dot college-dot"></span> College <span class="legend-dot hostel-dot"></span> Hostel / PG</div></section>
+  </div>
+</section>
+
+<section class="container feature-strip">
+  <div class="feature-card"><span class="feature-number">01</span><div><h3>Compare the real commute</h3><p>Haversine distance plus an easy walking-time estimate for every result.</p></div></div>
+  <div class="feature-card"><span class="feature-number">02</span><div><h3>See the neighbourhood</h3><p>Use the split map to understand what's around your future campus.</p></div></div>
+  <div class="feature-card"><span class="feature-number">03</span><div><h3>Share what you know</h3><p>Write one honest review per stay and help the next student decide.</p></div></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/app.js') }}"></script>{% endblock %}
